@@ -40,10 +40,6 @@ class Author {
 
 @Resolver(Author)
 class SimpleResolver {
-  @FieldResolver()
-  md5(@Root() root: Author) {
-    return md5(root.name);
-  }
   @Query(() => [Author])
   authors() {
     return data;
@@ -52,10 +48,6 @@ class SimpleResolver {
 
 @Resolver(Author)
 class AsyncResolver {
-  @FieldResolver()
-  md5(@Root() root: Author) {
-    return md5(root.name);
-  }
   @Query(() => [Author])
   async authors() {
     return data;
@@ -64,10 +56,6 @@ class AsyncResolver {
 
 @Resolver(Author)
 class MiddlewareResolver {
-  @FieldResolver()
-  md5(@Root() root: Author) {
-    return md5(root.name);
-  }
   @Query(() => [Author])
   @UseMiddleware(({ args }, next) => {
     Object.keys(args).length;
@@ -80,10 +68,6 @@ class MiddlewareResolver {
 
 @Resolver(Author)
 class AsyncMiddlewareResolver {
-  @FieldResolver()
-  md5(@Root() root: Author) {
-    return md5(root.name);
-  }
   @Query(() => [Author])
   @UseMiddleware(async ({ args }, next) => {
     Object.keys(args).length;
