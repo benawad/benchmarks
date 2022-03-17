@@ -19,7 +19,7 @@ function updateReadme(startupResults) {
 * __listen:__ time elapsed until the http server is ready to accept requests (cold start)
 ${startupResults}
 `;
-  const md = fs.readFileSync("startup/METRICS.md", "utf8");
+  const md = fs.readFileSync("METRICS.md", "utf8");
   fs.writeFileSync(
     "METRICS.md",
     md.split("# Metrics")[0] + benchmarkMd,

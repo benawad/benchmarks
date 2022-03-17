@@ -2,45 +2,45 @@
 # Metrics
 * __Machine:__ darwin x64 | 16 vCPUs | 16.0GB Mem
 * __Node:__ `v14.16.1`
-* __Run:__ Thu Mar 17 2022 13:22:00 GMT+0800 (Philippine Standard Time)
+* __Run:__ Thu Mar 17 2022 13:53:18 GMT+0800 (Philippine Standard Time)
 * __Method:__ `npm run metrics` (samples: 5)
 * __startup:__ time elapsed to setup the application
 * __listen:__ time elapsed until the http server is ready to accept requests (cold start)
 
 |                                                | startup(ms) | listen(ms) |
 | -                                              | -           | -          |
-| apollo-opentracing.js                          | 512.76      | 514.42     |
-| apollo-schema+async.js                         | 501.24      | 502.92     |
-| apollo-server-express-tracing.js               | 508.91      | 510.55     |
-| apollo-server-express.js                       | 504.11      | 505.77     |
-| apollo-server-koa+graphql-jit+type-graphql.js  | 566.50      | 568.22     |
-| benzene-http.js                                | 497.66      | 499.50     |
-| core-graphql-jit-buf-fjs.js                    | 539.65      | 541.54     |
-| core-graphql-jit-buf.js                        | 513.82      | 515.66     |
-| core-graphql-jit-str.js                        | 513.18      | 514.99     |
-| express-gql.js                                 | 522.13      | 523.78     |
-| express-graphql+graphql-compose.js             | 441.22      | 442.92     |
-| express-graphql+graphql-jit+graphql-compose.js | 466.42      | 468.08     |
-| express-graphql+graphql-jit+type-graphql.js    | 501.40      | 503.08     |
-| express-graphql+graphql-jit.js                 | 527.03      | 528.69     |
-| express-graphql+type-graphql.js                | 474.71      | 476.36     |
-| express-graphql-dd-trace-less.js               | 787.69      | 788.71     |
-| express-graphql-dd-trace-no-plugin.js          | 666.93      | 668.06     |
-| express-graphql-dd-trace.js                    | 778.31      | 779.34     |
-| express-graphql.js                             | 500.32      | 501.97     |
-| fastify-REST.js                                | 403.77      | 411.48     |
-| fastify-express-graphql-jit.js                 | 584.59      | 592.61     |
-| fastify-express-graphql-typed-jit.js           | 520.27      | 527.67     |
-| fastify-express-grapql-typed.js                | 505.67      | 514.87     |
-| graphql-api-koa+graphql-jit.js                 | 536.36      | 538.13     |
-| graphql-api-koa.js                             | 507.84      | 509.57     |
-| graphql-compose+async.js                       | 441.47      | 443.22     |
-| mercurius+graphql-compose.js                   | 551.93      | 580.99     |
-| mercurius+graphql-jit+type-graphql.js          | 572.38      | 602.95     |
-| mercurius+graphql-jit.js                       | 661.78      | 693.80     |
-| mercurius.js                                   | 633.72      | 664.19     |
-| type-graphql+async-middleware.js               | 471.69      | 473.38     |
-| type-graphql+async.js                          | 472.77      | 474.39     |
-| type-graphql+middleware.js                     | 474.01      | 475.60     |
-| yoga-graphql-trace.js                          | 561.18      | 564.83     |
-| yoga-graphql.js                                | 565.37      | 569.04     |
+| apollo-opentracing.js                          | 548.86      | 550.67     |
+| apollo-schema+async.js                         | 506.58      | 508.20     |
+| apollo-server-express-tracing.js               | 509.39      | 511.00     |
+| apollo-server-express.js                       | 510.17      | 511.84     |
+| apollo-server-koa+graphql-jit+type-graphql.js  | 573.12      | 574.78     |
+| benzene-http.js                                | 502.85      | 504.74     |
+| core-graphql-jit-buf-fjs.js                    | 547.71      | 549.56     |
+| core-graphql-jit-buf.js                        | 513.71      | 515.57     |
+| core-graphql-jit-str.js                        | 513.02      | 514.88     |
+| express-gql.js                                 | 521.66      | 523.33     |
+| express-graphql+graphql-compose.js             | 443.51      | 445.17     |
+| express-graphql+graphql-jit+graphql-compose.js | 473.19      | 474.80     |
+| express-graphql+graphql-jit+type-graphql.js    | 519.19      | 520.90     |
+| express-graphql+graphql-jit.js                 | 537.05      | 539.09     |
+| express-graphql+type-graphql.js                | 477.65      | 479.37     |
+| express-graphql-dd-trace-less.js               | 821.93      | 822.98     |
+| express-graphql-dd-trace-no-plugin.js          | 695.21      | 696.38     |
+| express-graphql-dd-trace.js                    | 919.16      | 920.38     |
+| express-graphql.js                             | 557.07      | 558.85     |
+| fastify-REST.js                                | 405.13      | 413.20     |
+| fastify-express-graphql-jit.js                 | 622.93      | 630.83     |
+| fastify-express-graphql-typed-jit.js           | 530.00      | 537.38     |
+| fastify-express-grapql-typed.js                | 511.11      | 520.59     |
+| graphql-api-koa+graphql-jit.js                 | 551.53      | 553.34     |
+| graphql-api-koa.js                             | 516.00      | 517.73     |
+| graphql-compose+async.js                       | 442.16      | 443.79     |
+| mercurius+graphql-compose.js                   | 555.85      | 584.94     |
+| mercurius+graphql-jit+type-graphql.js          | 572.82      | 603.11     |
+| mercurius+graphql-jit.js                       | 759.33      | 791.84     |
+| mercurius.js                                   | 639.21      | 669.88     |
+| type-graphql+async-middleware.js               | 481.93      | 483.67     |
+| type-graphql+async.js                          | 487.05      | 488.79     |
+| type-graphql+middleware.js                     | 479.51      | 481.17     |
+| yoga-graphql-trace.js                          | 597.79      | 601.64     |
+| yoga-graphql.js                                | 607.10      | 611.01     |

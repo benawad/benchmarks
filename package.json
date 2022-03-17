@@ -15,7 +15,6 @@
     "metrics:run": "node startup/_startup.js",
     "metrics:summary": "node startup/_process-results.js -u",
     "metrics": "npm run metrics:run && npm run metrics:summary"
-
   },
   "bin": {
     "benchmark": "./benchmark.js"
