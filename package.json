@@ -11,7 +11,9 @@
     "build": "tsc && mv dist/schemas/createTypeGraphQLSchema.js lib/schemas",
     "test": "standard | snazzy",
     "standard": "standard | snazzy",
-    "eslint": "eslint . --ext .js --fix"
+    "eslint": "eslint . --ext .js --fix",
+    "metrics:run": "node startup/_startup.js",
+    "metrics:summary": "node startup/_process-results.js -u"
   },
   "bin": {
     "benchmark": "./benchmark.js"
