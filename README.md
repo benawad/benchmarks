@@ -4,6 +4,7 @@
 - apollo-server adds overhead
 - tracing resolvers kills performance
 - type-graphql adds overhead
+- For metrics (cold-start) see [METRICS.md](metrics.md)
 
 # Explanation
 

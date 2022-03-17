@@ -1,4 +1,5 @@
 "use strict";
+const start = process.hrtime();
 
 const { ApolloServer } = require("apollo-server-express");
 const express = require("express");
@@ -11,4 +12,15 @@ const server = new ApolloServer({
   tracing: true,
 });
 server.applyMiddleware({ app });
-app.listen(4001);
+
+const loadingTime = process.hrtime(start);
+
+const svr = app.listen(4001);
+
+const listenTime = process.hrtime(start);
+require("fs").writeFileSync(
+  `${__filename}.txt`,
+  `${loadingTime} | ${listenTime}\n`,
+  { encoding: "utf-8", flag: "a" },
+);
+svr.close();
