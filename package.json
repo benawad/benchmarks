@@ -14,7 +14,8 @@
     "eslint": "eslint . --ext .js --fix",
     "metrics:run": "node startup/_startup.js",
     "metrics:summary": "node startup/_process-results.js -u",
-    "metrics": "npm run metrics:run && npm run metrics:summary"
+    "metrics": "npm run metrics:run && npm run metrics:summary",
+    "generate-static-data": "cd lib && node generateStatic.js"
   },
   "bin": {
     "benchmark": "./benchmark.js"
