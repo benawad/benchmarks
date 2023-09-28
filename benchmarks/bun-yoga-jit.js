@@ -3,7 +3,7 @@ const { exec } = require("child_process");
 const path = require("path");
 
 const forked = exec(
-  "~/.bun/bin/bun run server.ts",
+  "~/.bun/bin/bun run server-jit.ts",
   { cwd: path.join(__dirname, "..", "other-benchmarks/bun/") },
   (error, stdout, stderr) => {
     if (error) {
@@ -21,4 +21,4 @@ const forked = exec(
   },
 );
 process.on("SIGINT", () => forked.kill());
-forked.on("exit", () => console.log(" bun-yoga exited"));
+forked.on("exit", () => console.log("bun-yoga-jit exited"));

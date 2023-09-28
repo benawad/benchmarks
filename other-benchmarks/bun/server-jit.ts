@@ -1,10 +1,12 @@
 import { createYoga } from "graphql-yoga";
+import { useGraphQlJit } from "@envelop/graphql-jit";
 
 import schema from "./schema";
 
 const fetch = createYoga({
   graphqlEndpoint: "/graphql",
   schema,
+  plugins: [useGraphQlJit()],
 });
 
 const server = Bun.serve({
