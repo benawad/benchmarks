@@ -9,6 +9,7 @@ const fetch = createYoga({
 
 const server = Bun.serve({
   fetch,
+  port: process.env.PORT || 4001,
 });
 
 console.info(
