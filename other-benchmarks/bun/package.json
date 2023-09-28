@@ -1,0 +1,19 @@
+{
+  "name": "bun-graphql-benchmark",
+  "module": "server.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/faker": "5.1.6",
+    "bun-types": "latest",
+    "prettier": "^3.0.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@envelop/graphql-jit": "^6.0.5",
+    "faker": "5.2.0",
+    "graphql": "^16.8.1",
+    "graphql-yoga": "^4.0.4"
+  }
+}
