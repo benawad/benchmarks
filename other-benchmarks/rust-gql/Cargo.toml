@@ -1,0 +1,15 @@
+[package]
+name = "rust-gql"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+actix-web = { version = "4.0.0-beta.14", default-features = false }
+async-graphql = "3.0.15"
+async-graphql-actix-web = "3.0.15"
+md5 = "0.7.0"
+uuid = { version = "0.8.2", features = ["v4"] }
+fake = "2.4.3"
+rand = "0.8.4"
