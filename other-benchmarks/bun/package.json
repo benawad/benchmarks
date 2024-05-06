@@ -3,17 +3,16 @@
   "module": "server.ts",
   "type": "module",
   "devDependencies": {
-    "@types/faker": "5.1.6",
     "bun-types": "latest",
-    "prettier": "^3.0.3"
+    "prettier": "^3.2.5"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@envelop/graphql-jit": "^6.0.5",
-    "faker": "5.2.0",
+    "@envelop/graphql-jit": "^8.0.3",
+    "@faker-js/faker": "^8.4.1",
     "graphql": "^16.8.1",
-    "graphql-yoga": "^4.0.4"
+    "graphql-yoga": "^5.3.0"
   }
 }

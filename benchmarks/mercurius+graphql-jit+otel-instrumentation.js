@@ -14,4 +14,6 @@ app.register(mercurius, {
   jit: 1,
 });
 
-app.listen(4001);
+app.listen({
+  port: 4001,
+});

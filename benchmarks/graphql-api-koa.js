@@ -2,16 +2,20 @@
 
 const Koa = require("koa");
 const bodyParser = require("koa-bodyparser");
-const { errorHandler, execute } = require("graphql-api-koa");
-const { graphqlUploadKoa } = require("graphql-upload");
+const graphqlUploadKoa = require("graphql-upload/graphqlUploadKoa.js");
 const { createApolloSchema } = require("../lib/schemas/createApolloSchema");
 
 const schema = createApolloSchema();
 
-const app = new Koa()
-  .use(errorHandler())
-  .use(graphqlUploadKoa())
-  .use(bodyParser())
-  .use(execute({ schema }));
+Promise.all([
+  import("graphql-api-koa/execute.mjs"),
+  import("graphql-api-koa/errorHandler.mjs"),
+]).then(([{ default: execute }, { default: errorHandler }]) => {
+  const app = new Koa()
+    .use(errorHandler())
+    .use(graphqlUploadKoa())
+    .use(bodyParser())
+    .use(execute({ schema }));
 
-app.listen(4001);
+  app.listen(4001);
+});

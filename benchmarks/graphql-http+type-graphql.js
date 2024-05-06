@@ -1,17 +1,16 @@
 "use strict";
 
 const { createHandler } = require("graphql-http/lib/use/express");
+const processRequest = require("graphql-upload/processRequest.js");
+const express = require("express");
+
 const {
   createTypeGraphQLSchema,
 } = require("../lib/schemas/createTypeGraphQLSchema");
-const app = require("fastify")();
 
-if (true) {
-  throw new Error("Unsupported");
-}
-
+const app = express();
 createTypeGraphQLSchema().then((schema) => {
-  app.post(
+  app.use(
     "/graphql",
     createHandler({
       schema,
@@ -28,7 +27,5 @@ createTypeGraphQLSchema().then((schema) => {
       },
     }),
   );
-  app.listen({
-    port: 4001,
-  });
+  app.listen(4001);
 });

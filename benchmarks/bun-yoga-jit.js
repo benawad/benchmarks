@@ -3,7 +3,7 @@ const { exec } = require("child_process");
 const path = require("path");
 
 const forked = exec(
-  "~/.bun/bin/bun run server-jit.ts",
+  "bun run server-jit.ts",
   { cwd: path.join(__dirname, "..", "other-benchmarks/bun/") },
   (error, stdout, stderr) => {
     if (error) {

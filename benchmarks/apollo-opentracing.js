@@ -1,9 +1,17 @@
 "use strict";
 
+const cors = require("cors");
+const { ApolloServer } = require("@apollo/server");
+const { expressMiddleware } = require("@apollo/server/express4");
 const OpentracingPlugin = require("apollo-opentracing").default;
-const { ApolloServer } = require("apollo-server-express");
 const express = require("express");
 const { createApolloSchema } = require("../lib/schemas/createApolloSchema");
+
+if (true) {
+  throw new Error(
+    "https://github.com/DanielMSchmidt/apollo-opentracing/issues/573",
+  );
+}
 
 const app = express();
 const schema = createApolloSchema();
@@ -22,5 +30,7 @@ const server = new ApolloServer({
     }),
   ],
 });
-server.applyMiddleware({ app });
-app.listen(4001);
+server.start().then(() => {
+  app.use("/graphql", cors(), express.json(), expressMiddleware(server, {}));
+  app.listen(4001);
+});

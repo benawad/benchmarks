@@ -1,4 +1,4 @@
-import faker from "faker";
+import { faker } from "@faker-js/faker";
 
 // that way data is consistent
 faker.seed(4321);
@@ -10,23 +10,21 @@ function genData() {
 
     for (let k = 0; k < 3; k++) {
       books.push({
-        id: faker.random.uuid(),
+        id: faker.string.uuid(),
         name: faker.internet.domainName(),
-        numPages: faker.random.number(),
+        numPages: faker.number.int(),
       });
     }
 
     authors.push({
-      id: faker.random.uuid(),
-      name: faker.name.findName(),
-      company: faker.company.bs(),
+      id: faker.string.uuid(),
+      name: faker.person.fullName(),
+      company: faker.company.buzzPhrase(),
       books,
     });
   }
 
   return authors;
 }
-
-
 
 export const data = genData();

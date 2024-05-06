@@ -1,17 +1,22 @@
 "use strict";
 
-const cors = require("cors");
 const { ApolloServer } = require("@apollo/server");
-const { expressMiddleware } = require("@apollo/server/express4");
-const express = require("express");
+const {
+  default: fastifyApollo,
+  fastifyApolloDrainPlugin,
+} = require("@as-integrations/fastify");
+const app = require("fastify")();
 const { createApolloSchema } = require("../lib/schemas/createApolloSchema");
 
-const app = express();
 const schema = createApolloSchema();
 const server = new ApolloServer({
   schema,
+  plugins: [fastifyApolloDrainPlugin(app)],
 });
+
 server.start().then(() => {
-  app.use("/graphql", cors(), express.json(), expressMiddleware(server, {}));
-  app.listen(4001);
+  app.register(fastifyApollo(server));
+  app.listen({
+    port: 4001,
+  });
 });

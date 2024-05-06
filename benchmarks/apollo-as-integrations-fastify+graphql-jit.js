@@ -1,6 +1,10 @@
 "use strict";
 
-const { ApolloServer } = require("apollo-server-fastify");
+const { ApolloServer } = require("@apollo/server");
+const {
+  default: fastifyApollo,
+  fastifyApolloDrainPlugin,
+} = require("@as-integrations/fastify");
 const { parse } = require("graphql");
 const { compileQuery } = require("graphql-jit");
 const app = require("fastify")();
@@ -12,6 +16,7 @@ const cache = {};
 
 const server = new ApolloServer({
   schema,
+  plugins: [fastifyApolloDrainPlugin(app)],
   executor: ({ source, context }) => {
     if (!(source in cache)) {
       const document = parse(source);
@@ -22,7 +27,8 @@ const server = new ApolloServer({
   },
 });
 server.start().then(() => {
-  app.register(server.createHandler());
-  app.listen(4001);
+  app.register(fastifyApollo(server));
+  app.listen({
+    port: 4001,
+  });
 });
-

@@ -4,11 +4,11 @@ const { createHandler } = require("graphql-http/lib/use/express");
 const processRequest = require("graphql-upload/processRequest.js");
 const express = require("express");
 const {
-  createAsyncGraphqlComposeSchema,
+  createGraphqlComposeSchema,
 } = require("../lib/schemas/createGraphqlCompose");
 
 const app = express();
-const schema = createAsyncGraphqlComposeSchema();
+const schema = createGraphqlComposeSchema();
 app.use(
   "/graphql",
   createHandler({

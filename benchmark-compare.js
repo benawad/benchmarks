@@ -1,20 +1,19 @@
 #!/usr/bin/env node
 
-const inquirer = require("inquirer");
 const chalk = require("chalk");
 const Table = require("cli-table");
 const { join } = require("path");
 const { readdirSync, readFileSync } = require("fs");
-const commander = require("commander");
+const { program } = require("commander");
 const { compare } = require("./lib/autocannon");
 
-commander
+program
   .option("-t, --table", "table")
   .option("-p, --percentage", "percentage")
   .option("-c --commandlineMdTable", "Print a table for use in MarkDown")
   .parse(process.argv);
 
-const options = commander.opts();
+const options = program.opts();
 const resultsPath = join(process.cwd(), "results");
 let choices = readdirSync(resultsPath)
   .filter((file) => file.match(/(.+)\.json$/))
@@ -140,45 +139,53 @@ if (!choices.length) {
 
   console.log(table.toString());
 } else {
-  inquirer
-    .prompt([
-      {
-        type: "list",
-        name: "choice",
-        message: "What's your first pick?",
-        choices,
-      },
-    ])
-    .then((firstChoice) => {
-      choices = choices.filter((choice) => choice !== firstChoice.choice);
-      inquirer
-        .prompt([
-          {
-            type: "list",
-            name: "choice",
-            message: "What's your second one?",
-            choices,
-          },
-        ])
-        .then((secondChoice) => {
-          const [a, b] = [firstChoice.choice, secondChoice.choice];
-          const result = compare(a, b);
-          if (result === true) {
-            console.log(chalk.green.bold(`${a} and ${b} both are fast!`));
-          } else {
-            const fastest = chalk.bold.yellow(result.fastest);
-            const fastestAverage = chalk.green(result.fastestAverage);
-            const slowest = chalk.bold.yellow(result.slowest);
-            const slowestAverage = chalk.green(result.slowestAverage);
-            const diff = chalk.bold.green(result.diff);
+  async function getInquirer() {
+    const { default: inquirer } = await import("inquirer");
 
-            console.log(`
+    return inquirer;
+  }
+
+  getInquirer().then((inquirer) => {
+    return inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "choice",
+          message: "What's your first pick?",
+          choices,
+        },
+      ])
+      .then((firstChoice) => {
+        choices = choices.filter((choice) => choice !== firstChoice.choice);
+        inquirer
+          .prompt([
+            {
+              type: "list",
+              name: "choice",
+              message: "What's your second one?",
+              choices,
+            },
+          ])
+          .then((secondChoice) => {
+            const [a, b] = [firstChoice.choice, secondChoice.choice];
+            const result = compare(a, b);
+            if (result === true) {
+              console.log(chalk.green.bold(`${a} and ${b} both are fast!`));
+            } else {
+              const fastest = chalk.bold.yellow(result.fastest);
+              const fastestAverage = chalk.green(result.fastestAverage);
+              const slowest = chalk.bold.yellow(result.slowest);
+              const slowestAverage = chalk.green(result.slowestAverage);
+              const diff = chalk.bold.green(result.diff);
+
+              console.log(`
  ${chalk.blue("Both are awesome but")} ${fastest} ${chalk.blue(
-              "is",
-            )} ${diff} ${chalk.blue("faster than")} ${slowest}
+                "is",
+              )} ${diff} ${chalk.blue("faster than")} ${slowest}
  • ${fastest} ${chalk.blue("request average is")} ${fastestAverage}
  • ${slowest} ${chalk.blue("request average is")} ${slowestAverage}`);
-          }
-        });
-    });
+            }
+          });
+      });
+  });
 }
