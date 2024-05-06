@@ -1,6 +1,6 @@
 "use strict";
 
-const { createHandler } = require("graphql-http/lib/use/express");
+const { createHandler } = require("graphql-http/lib/use/fastify");
 const app = require("fastify")();
 
 const { compileQuery } = require("graphql-jit");
@@ -16,6 +16,7 @@ const schema = createApolloSchema();
 app.post(
   "/graphql",
   createHandler({
+    schema,
     execute: (_, __, { query }) => {
       if (!(query in cache)) {
         const document = parse(query);

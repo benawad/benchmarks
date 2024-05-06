@@ -15,6 +15,7 @@ const cache = {};
 app.use(
   "/graphql",
   createHandler({
+    schema,
     async parseRequestParams(req) {
       const params = await processRequest(req.raw, req.context.res);
       if (Array.isArray(params)) {
