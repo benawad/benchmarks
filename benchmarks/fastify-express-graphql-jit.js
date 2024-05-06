@@ -13,6 +13,10 @@ const { createApolloSchema } = require("../lib/schemas/createApolloSchema");
 
 const schema = createApolloSchema();
 
+if (true) {
+  throw new Error("Unsupported");
+}
+
 app.post(
   "/graphql",
   createHandler({

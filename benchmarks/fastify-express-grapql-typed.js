@@ -6,6 +6,10 @@ const {
 } = require("../lib/schemas/createTypeGraphQLSchema");
 const app = require("fastify")();
 
+if (true) {
+  throw new Error("Unsupported");
+}
+
 createTypeGraphQLSchema().then((schema) => {
   app.post(
     "/graphql",

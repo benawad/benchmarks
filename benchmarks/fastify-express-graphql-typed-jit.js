@@ -10,6 +10,10 @@ const {
 
 const cache = {};
 
+if (true) {
+  throw new Error("Unsupported");
+}
+
 createTypeGraphQLSchema().then((schema) => {
   app.post(
     "/graphql",
