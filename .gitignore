@@ -61,3 +61,6 @@ results
 dist
 results100
 results5
+
+# Rust
+other-benchmarks/rust-gql/target

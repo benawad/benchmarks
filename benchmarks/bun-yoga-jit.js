@@ -3,8 +3,8 @@ const { exec } = require("child_process");
 const path = require("path");
 
 const forked = exec(
-  "/usr/local/go/bin/go run server.go",
-  { cwd: path.join(__dirname, "..", "other-benchmarks/go-gql/") },
+  "~/.bun/bin/bun run server-jit.ts",
+  { cwd: path.join(__dirname, "..", "other-benchmarks/bun/") },
   (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`);
@@ -14,8 +14,11 @@ const forked = exec(
       console.log(`stderr: ${stderr}`);
       return;
     }
-    console.log(`stdout: ${stdout}`);
+    if (stdout) {
+      console.log(`stdout: ${stdout}`);
+      return;
+    }
   },
 );
-console.log(path.join(__dirname, "..", "other-benchmarks/go-gql/server.go"));
-forked.on("exit", () => console.log("exited"));
+process.on("SIGINT", () => forked.kill());
+forked.on("exit", () => console.log("bun-yoga-jit exited"));

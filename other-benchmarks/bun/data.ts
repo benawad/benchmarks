@@ -1,4 +1,4 @@
-const faker = require("faker");
+import faker from "faker";
 
 // that way data is consistent
 faker.seed(4321);
@@ -10,14 +10,14 @@ function genData() {
 
     for (let k = 0; k < 3; k++) {
       books.push({
-        id: faker.datatype.uuid(),
+        id: faker.random.uuid(),
         name: faker.internet.domainName(),
-        numPages: faker.datatype.number(),
+        numPages: faker.random.number(),
       });
     }
 
     authors.push({
-      id: faker.datatype.uuid(),
+      id: faker.random.uuid(),
       name: faker.name.findName(),
       company: faker.company.bs(),
       books,
@@ -27,4 +27,6 @@ function genData() {
   return authors;
 }
 
-module.exports.data = genData();
+
+
+export const data = genData();

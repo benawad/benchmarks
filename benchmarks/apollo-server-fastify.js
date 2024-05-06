@@ -8,7 +8,8 @@ const schema = createApolloSchema();
 const server = new ApolloServer({
   schema,
 });
+
 server.start().then(() => {
   app.register(server.createHandler());
   app.listen(4001);
-});
+})
