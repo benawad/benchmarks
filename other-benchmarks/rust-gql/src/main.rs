@@ -1,5 +1,5 @@
 use actix_web::web::Data;
-use actix_web::{guard, web, App, HttpResponse, HttpServer, Result};
+use actix_web::{web, App, HttpResponse, HttpServer, Result};
 
 use async_graphql::http::{playground_source, GraphQLPlaygroundConfig};
 use async_graphql_actix_web::{GraphQLRequest, GraphQLResponse};
@@ -26,8 +26,7 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
             .app_data(Data::new(schema.clone()))
-            .service(web::resource("/graphql").guard(guard::Post()).to(index))
-            .service(web::resource("/graphql").guard(guard::Get()).to(index_playground))
+            .service(web::resource("/graphql").post(index).get(index_playground))
     })
     .bind("127.0.0.1:4001")?
     .run()

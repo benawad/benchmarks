@@ -1,9 +1,10 @@
-use async_graphql::{ComplexObject, EmptyMutation, EmptySubscription, ID, Object, Schema, SimpleObject};
+use async_graphql::{
+    ComplexObject, EmptyMutation, EmptySubscription, Object, Schema, SimpleObject, ID,
+};
 
-use md5;
-use uuid::Uuid;
-use rand::Rng;
 use fake::{self, Fake};
+use rand::Rng;
+use uuid::Uuid;
 
 #[derive(SimpleObject)]
 pub struct Book {
@@ -18,7 +19,7 @@ pub struct Author {
     pub id: ID,
     pub name: String,
     pub company: String,
-    
+
     #[graphql(skip)]
     books: Vec<Book>,
 }
@@ -46,17 +47,17 @@ impl QueryRoot {
 
             for _i in 0..3 {
                 books.push(Book {
-                    id: ID(format!("{}", Uuid::new_v4())),
+                    id: ID(Uuid::new_v4().to_string()),
                     name: fake::faker::name::en::LastName().fake(),
                     num_pages: rand::thread_rng().gen_range(100..10000),
                 });
             }
-            
+
             authors.push(Author {
-                id: ID(format!("{}", Uuid::new_v4())),
+                id: ID(Uuid::new_v4().to_string()),
                 name: fake::faker::name::en::FirstName().fake(),
                 company: fake::faker::company::en::Bs().fake(),
-                books
+                books,
             });
         }
 
