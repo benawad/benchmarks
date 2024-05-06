@@ -14,7 +14,7 @@ const {
 
 const cache = {};
 
-createTypeGraphQLSchema().then(() => {
+createTypeGraphQLSchema().then((schema) => {
   const server = new ApolloServer({
     schema,
     plugins: [fastifyApolloDrainPlugin(app)],
