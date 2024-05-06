@@ -7,6 +7,12 @@ const OpentracingPlugin = require("apollo-opentracing").default;
 const express = require("express");
 const { createApolloSchema } = require("../lib/schemas/createApolloSchema");
 
+if (true) {
+  throw new Error(
+    "https://github.com/DanielMSchmidt/apollo-opentracing/issues/573",
+  );
+}
+
 const app = express();
 const schema = createApolloSchema();
 const server = new ApolloServer({
