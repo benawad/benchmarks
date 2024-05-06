@@ -28,5 +28,7 @@ createTypeGraphQLSchema().then((schema) => {
       },
     }),
   );
-  app.listen(4001);
+  app.listen({
+    port: 4001,
+  });
 });
