@@ -1,13 +1,15 @@
 "use strict";
 
 const { createHandler } = require("graphql-http/lib/use/express");
+const processRequest = require("graphql-upload/processRequest.js");
+const express = require("express");
 const {
-  createTypeGraphQLSchema,
+  createAsyncMiddlewareTypeGraphQLSchema,
 } = require("../lib/schemas/createTypeGraphQLSchema");
-const app = require("fastify")();
 
-createTypeGraphQLSchema().then((schema) => {
-  app.post(
+const app = express();
+createAsyncMiddlewareTypeGraphQLSchema().then((schema) => {
+  app.use(
     "/graphql",
     createHandler({
       schema,

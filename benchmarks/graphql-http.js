@@ -3,12 +3,10 @@
 const { createHandler } = require("graphql-http/lib/use/express");
 const processRequest = require("graphql-upload/processRequest.js");
 const express = require("express");
-const {
-  createAsyncGraphqlComposeSchema,
-} = require("../lib/schemas/createGraphqlCompose");
+const { createApolloSchema } = require("../lib/schemas/createApolloSchema");
 
 const app = express();
-const schema = createAsyncGraphqlComposeSchema();
+const schema = createApolloSchema();
 app.use(
   "/graphql",
   createHandler({

@@ -1,29 +1,39 @@
 "use strict";
 
 const { createHandler } = require("graphql-http/lib/use/express");
-const app = require("fastify")();
-
-const { compileQuery } = require("graphql-jit");
-
+const express = require("express");
 const { parse } = require("graphql");
+const { compileQuery } = require("graphql-jit");
+const processRequest = require("graphql-upload/processRequest.js");
+const { createApolloSchema } = require("../lib/schemas/createApolloSchema");
+
+const app = express();
+const schema = createApolloSchema();
 
 const cache = {};
 
-const { createApolloSchema } = require("../lib/schemas/createApolloSchema");
-
-const schema = createApolloSchema();
-
-app.post(
+app.use(
   "/graphql",
   createHandler({
+    async parseRequestParams(req) {
+      const params = await processRequest(req.raw, req.context.res);
+      if (Array.isArray(params)) {
+        throw new Error("Batching is not supported");
+      }
+      return {
+        ...params,
+        // variables must be an object as per the GraphQL over HTTP spec
+        variables: Object(params.variables),
+      };
+    },
     execute: (_, __, { query }) => {
       if (!(query in cache)) {
         const document = parse(query);
         cache[query] = compileQuery(schema, document);
       }
+
       return {
         schema,
-        graphiql: true,
         customExecuteFn: ({ rootValue, variableValues, contextValue }) =>
           cache[query].query(rootValue, contextValue, variableValues),
       };
