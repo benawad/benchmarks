@@ -58,6 +58,8 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "@apollo/server": "^4.10.4",
+    "@as-integrations/fastify": "^2.1.1",
     "@benzene/http": "^0.4.2",
     "@benzene/jit": "^0.1.5",
     "@faker-js/faker": "^8.4.1",
@@ -73,7 +75,6 @@
     "@opentelemetry/semantic-conventions": "^1.24.0",
     "apollo-opentracing": "^3.0.45",
     "apollo-server-express": "^3.13.0",
-    "apollo-server-fastify": "^3.13.0",
     "apollo-server-koa": "^3.13.0",
     "autocannon": "^7.15.0",
     "autocannon-compare": "^0.4.0",
