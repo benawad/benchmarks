@@ -89,7 +89,7 @@
     "fast-json-stringify": "^5.15.1",
     "fastify": "^4.26.2",
     "graphql": "16.8.1",
-    "graphql-api-koa": "^6.0.0",
+    "graphql-api-koa": "^9.1.3",
     "graphql-compose": "^9.0.10",
     "graphql-http": "^1.22.1",
     "graphql-jit": "^0.8.6",
