@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import {
-  buildSchemaSync,
+  buildSchema,
   Resolver,
   Query,
   ObjectType,
@@ -95,25 +95,25 @@ class AsyncMiddlewareResolver {
 }
 
 export function createTypeGraphQLSchema() {
-  return buildSchemaSync({
+  return buildSchema({
     resolvers: [SimpleResolver],
   });
 }
 
 export function createAsyncTypeGraphQLSchema() {
-  return buildSchemaSync({
+  return buildSchema({
     resolvers: [AsyncResolver],
   });
 }
 
 export function createMiddlewareTypeGraphQLSchema() {
-  return buildSchemaSync({
+  return buildSchema({
     resolvers: [MiddlewareResolver],
   });
 }
 
 export function createAsyncMiddlewareTypeGraphQLSchema() {
-  return buildSchemaSync({
+  return buildSchema({
     resolvers: [AsyncMiddlewareResolver],
   });
 }

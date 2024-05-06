@@ -12,25 +12,25 @@ const {
   createTypeGraphQLSchema,
 } = require("../lib/schemas/createTypeGraphQLSchema");
 
-const schema = createTypeGraphQLSchema();
-
 const cache = {};
 
-const server = new ApolloServer({
-  schema,
-  plugins: [fastifyApolloDrainPlugin(app)],
-  executor: ({ source, context }) => {
-    if (!(source in cache)) {
-      const document = parse(source);
-      cache[source] = compileQuery(schema, document);
-    }
+createTypeGraphQLSchema().then(() => {
+  const server = new ApolloServer({
+    schema,
+    plugins: [fastifyApolloDrainPlugin(app)],
+    executor: ({ source, context }) => {
+      if (!(source in cache)) {
+        const document = parse(source);
+        cache[source] = compileQuery(schema, document);
+      }
 
-    return cache[source].query({}, context, {});
-  },
-});
-server.start().then(() => {
-  app.register(fastifyApollo(server));
-  app.listen({
-    port: 4001,
+      return cache[source].query({}, context, {});
+    },
+  });
+  server.start().then(() => {
+    app.register(fastifyApollo(server));
+    app.listen({
+      port: 4001,
+    });
   });
 });
