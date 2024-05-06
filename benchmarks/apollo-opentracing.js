@@ -1,7 +1,9 @@
 "use strict";
 
+const cors = require("cors");
+const { ApolloServer } = require("@apollo/server");
+const { expressMiddleware } = require("@apollo/server/express4");
 const OpentracingPlugin = require("apollo-opentracing").default;
-const { ApolloServer } = require("apollo-server-express");
 const express = require("express");
 const { createApolloSchema } = require("../lib/schemas/createApolloSchema");
 
@@ -23,6 +25,6 @@ const server = new ApolloServer({
   ],
 });
 server.start().then(() => {
-  server.applyMiddleware({ app });
+  app.use("/graphql", cors(), express.json(), expressMiddleware(server, {}));
   app.listen(4001);
 });
