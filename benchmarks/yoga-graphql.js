@@ -1,10 +1,16 @@
 "use strict";
 
-const { GraphQLServer } = require("graphql-yoga");
+const { createServer } = require("http");
+const { createYoga } = require("graphql-yoga");
 const { createApolloSchema } = require("../lib/schemas/createApolloSchema");
 
 const schema = createApolloSchema();
 
-const server = new GraphQLServer({ schema });
+const yoga = createYoga({
+  graphqlEndpoint: "/graphql",
+  schema,
+});
 
-server.start({ port: 4001, endpoint: "/graphql" });
+const server = createServer(yoga);
+
+server.listen(4001);
