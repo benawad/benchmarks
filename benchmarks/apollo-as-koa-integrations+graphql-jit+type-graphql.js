@@ -1,9 +1,16 @@
 "use strict";
 
-const { ApolloServer } = require("apollo-server-koa");
+const { koaMiddleware } = require("@as-integrations/koa");
 const Koa = require("koa");
+const bodyParser = require("koa-bodyparser");
+const cors = require("@koa/cors");
+const { ApolloServer } = require("@apollo/server");
+const {
+  ApolloServerPluginDrainHttpServer,
+} = require("@apollo/server/plugin/drainHttpServer");
 const { parse } = require("graphql");
 const { compileQuery } = require("graphql-jit");
+const { createServer } = require("http");
 const {
   createAsyncTypeGraphQLSchema,
 } = require("../lib/schemas/createTypeGraphQLSchema");
@@ -11,6 +18,8 @@ const {
 const app = new Koa();
 
 const cache = {};
+
+const httpServer = createServer(app.callback());
 
 createAsyncTypeGraphQLSchema().then((schema) => {
   const server = new ApolloServer({
@@ -23,9 +32,12 @@ createAsyncTypeGraphQLSchema().then((schema) => {
 
       return cache[source].query({}, context, {});
     },
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
   server.start().then(() => {
-    server.applyMiddleware({ app });
-    app.listen(4001);
+    app.use(cors());
+    app.use(bodyParser());
+    app.use(koaMiddleware(server, {}));
+    return new Promise((resolve) => httpServer.listen({ port: 4001 }, resolve));
   });
 });
