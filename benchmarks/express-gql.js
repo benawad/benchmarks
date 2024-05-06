@@ -3,7 +3,7 @@
 const bodyParser = require("body-parser");
 const { createGraphqlMiddleware } = require("express-gql");
 const express = require("express");
-const { graphqlUploadExpress } = require("graphql-upload");
+const graphqlUploadExpress = require("graphql-upload/graphqlUploadExpress.js");
 const { createApolloSchema } = require("../lib/schemas/createApolloSchema");
 
 const schema = createApolloSchema();

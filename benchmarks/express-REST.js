@@ -1,7 +1,7 @@
 "use strict";
 
 const express = require("express");
-const { graphqlUploadExpress } = require("graphql-upload");
+const graphqlUploadExpress = require("graphql-upload/graphqlUploadExpress.js");
 const md5 = require("md5");
 const { data } = require("../lib/data");
 
