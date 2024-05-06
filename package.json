@@ -59,6 +59,7 @@
   "license": "MIT",
   "dependencies": {
     "@benzene/http": "^0.4.0",
+    "@benzene/jit": "^0.1.3",
     "@graphql-tools/schema": "^8.3.1",
     "@opentelemetry/exporter-trace-otlp-grpc": "^0.29.2",
     "@opentelemetry/instrumentation": "^0.29.2",
