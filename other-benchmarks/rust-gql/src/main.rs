@@ -1,34 +1,32 @@
-use actix_web::web::Data;
-use actix_web::{web, App, HttpResponse, HttpServer, Result};
+use axum::{
+    response::{self, IntoResponse},
+    routing::get,
+    Router,
+};
 
-use async_graphql::http::{playground_source, GraphQLPlaygroundConfig};
-use async_graphql_actix_web::{GraphQLRequest, GraphQLResponse};
+use async_graphql::http::GraphiQLSource;
+use async_graphql_axum::GraphQL;
+
+use tokio::net::TcpListener;
 
 mod schema;
 
-async fn index(schema: web::Data<schema::ServerSchema>, req: GraphQLRequest) -> GraphQLResponse {
-    schema.execute(req.into_inner()).await.into()
+async fn index_playground() -> impl IntoResponse {
+    response::Html(GraphiQLSource::build().endpoint("/graphql").finish())
 }
 
-async fn index_playground() -> Result<HttpResponse> {
-    let source = playground_source(GraphQLPlaygroundConfig::new("/graphql"));
-    Ok(HttpResponse::Ok()
-        .content_type("text/html; charset=utf-8")
-        .body(source))
-}
-
-#[actix_web::main]
-async fn main() -> std::io::Result<()> {
+#[tokio::main]
+async fn main() {
     let schema = schema::new_schema();
 
     println!("Playground: http://localhost:4001/graphql");
 
-    HttpServer::new(move || {
-        App::new()
-            .app_data(Data::new(schema.clone()))
-            .service(web::resource("/graphql").post(index).get(index_playground))
-    })
-    .bind("127.0.0.1:4001")?
-    .run()
-    .await
+    let app = Router::new().route(
+        "/graphql",
+        get(index_playground).post_service(GraphQL::new(schema)),
+    );
+
+    axum::serve(TcpListener::bind("127.0.0.1:4001").await.unwrap(), app)
+        .await
+        .unwrap();
 }
