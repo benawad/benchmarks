@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import {
-  buildSchema,
+  buildSchemaSync,
   Resolver,
   Query,
   ObjectType,
@@ -9,7 +9,7 @@ import {
   ID,
   FieldResolver,
   Root,
-  UseMiddleware
+  UseMiddleware,
 } from "type-graphql";
 import { data } from "../data";
 import md5 = require("md5");
@@ -95,25 +95,25 @@ class AsyncMiddlewareResolver {
 }
 
 export function createTypeGraphQLSchema() {
-  return buildSchema({
-    resolvers: [SimpleResolver]
+  return buildSchemaSync({
+    resolvers: [SimpleResolver],
   });
 }
 
 export function createAsyncTypeGraphQLSchema() {
-  return buildSchema({
-    resolvers: [AsyncResolver]
+  return buildSchemaSync({
+    resolvers: [AsyncResolver],
   });
 }
 
 export function createMiddlewareTypeGraphQLSchema() {
-  return buildSchema({
-    resolvers: [MiddlewareResolver]
+  return buildSchemaSync({
+    resolvers: [MiddlewareResolver],
   });
 }
 
 export function createAsyncMiddlewareTypeGraphQLSchema() {
-  return buildSchema({
-    resolvers: [AsyncMiddlewareResolver]
+  return buildSchemaSync({
+    resolvers: [AsyncMiddlewareResolver],
   });
 }

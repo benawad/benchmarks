@@ -101,7 +101,7 @@
     "ora": "^8.0.1",
     "reflect-metadata": "^0.2.2",
     "turbo-json-parse": "^2.3.0",
-    "type-graphql": "^1.1.1",
+    "type-graphql": "^2.0.0-rc.1",
     "uWebSockets.js": "uNetworking/uWebSockets.js#v20.43.0"
   },
   "devDependencies": {
